@@ -90,7 +90,7 @@ class lexer(object):
             t = self.nextToken() 
         return tokens
 
-
+# debug ```python lexer.py ```
 text = " ans1 = 10 + 902"
 tokens = []
 tokens = lexer().init(text).tokenize()
