@@ -30,7 +30,7 @@ class lexer(object):
         return c
 
     def skipWhiteSpace(self):
-        if(not self.isEOF() and self.c() == " "):
+        while(not self.isEOF() and self.c().isspace() ):
             self.next()
 
     # 演算子かどうか？
@@ -43,7 +43,7 @@ class lexer(object):
 
     # アルファベットかどうか
     def isVariableStart(self, c):
-        return c.isalnum()
+        return c.islower()
 
     def sign(self):
         t = token()
@@ -62,7 +62,7 @@ class lexer(object):
 
     def variable(self):
         b = self.next()
-        while(not self.isEOF() and (self.c().isdigit() or self.c().isalnum())):
+        while(not self.isEOF() and (self.c().isdigit() or self.c().islower())):
             b = b + self.next()
         t = token()
         t.kind = "variable"
@@ -70,6 +70,7 @@ class lexer(object):
         return t
 
     def nextToken(self):
+        
         self.skipWhiteSpace()
         if self.isEOF():
             return None
@@ -91,7 +92,7 @@ class lexer(object):
         return tokens
 
 # debug ```python lexer.py ```
-text = " ans1 = 10 + 902"
+text = " ans1 = 10 + 902  ans2 = 1 * 2 / 1"
 tokens = []
 tokens = lexer().init(text).tokenize()
 for token in tokens:
