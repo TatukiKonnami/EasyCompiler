@@ -62,7 +62,7 @@ class lexer(object):
 
     def variable(self):
         b = self.next()
-        while(not self.isEOF() and (self.c().isdigit() or self.c().islower())):
+        while(not self.isEOF() and (self.c().isdigit() or self.c().isalnum())):
             b = b + self.next()
         t = token()
         t.kind = "variable"
@@ -92,7 +92,7 @@ class lexer(object):
         return tokens
 
 # debug ```python lexer.py ```
-text = " ans1 = 10 + 902  ans2 = 1 * 2 / 1"
+text = " ans1 = 10 + 902  ansA2 = 1 * 2 / 1"
 tokens = []
 tokens = lexer().init(text).tokenize()
 for token in tokens:
